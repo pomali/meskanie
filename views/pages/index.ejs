@@ -1,56 +1,82 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <% include ../partials/header.ejs %>
-</head>
+  <head>
+    <% include ../partials/header.ejs %>
+  </head>
 
-<body>
+  <body>
 
-  <% include ../partials/nav.ejs %>
+    <div class="jumbotron text-center">
+      <div class="container">
+        <a href="/" class="lang-logo">
+          <img src="/lang-logo.png">
+        </a>
+        <h1>Meškania MHD</h1>
+        <p>Nahlás svoje meškanie</p>
+        <a type="button" class="btn btn-lg btn-default js-new" href="#"><span class="glyphicon glyphicon-flash"></span> Nahlás meškanie</a>
 
-<div class="jumbotron text-center">
-  <div class="container">
-    <a href="/" class="lang-logo">
-      <img src="/lang-logo.png">
-    </a>
-    <h1>Getting Started with Node on Heroku</h1>
-    <p>This is a sample Node application deployed to Heroku. It's a reasonably simple app - but a good foundation for understanding how to get the most out of the Heroku platform.</p>
-    <a type="button" class="btn btn-lg btn-default" href="https://devcenter.heroku.com/articles/getting-started-with-nodejs"><span class="glyphicon glyphicon-flash"></span> Getting Started with Node</a>
-    <a type="button" class="btn btn-lg btn-primary" href="https://github.com/heroku/node-js-getting-started"><span class="glyphicon glyphicon-download"></span> Source on GitHub</a>
-  </div>
-</div>
-<div class="container">
-  <div class="alert alert-info text-center" role="alert">
-    To deploy your own copy, and learn the fundamentals of the Heroku platform, head over to the <a href="https://devcenter.heroku.com/articles/getting-started-with-nodejs" class="alert-link">Getting Started with Node on Heroku</a> tutorial.
-  </div>
-  <hr>
-  <div class="row">
-    <div class="col-md-6">
-      <h3><span class="glyphicon glyphicon-info-sign"></span> How this sample app works</h3>
-      <ul>
-        <li>This app was deployed to Heroku, either using Git or by using <a href="https://github.com/heroku/node-js-getting-started">Heroku Button</a> on the repository.</li>
+        <form class="form-inline" action="POST">
+          <div class="row">
+            <div class="col-md-offset-1 col-md-2 form-group">
+              <label for="form-lat">Lat: </label>
+              <input type="number" class="form-control" step=0.00001 id="form-lat" name="lat" placeholder="48.123">
+            </div>
+            <div class="col-md-2 form-group">
+              <label for="form-lon">Lon: </label>
+              <input type="number" class="form-control" step="any" id="form-lon" name="lon" placeholder="17.123">
+            </div>
+            <div class="col-md-2 form-group">
+              <label for="form-line">Spoj: </label>
+              <input type="number" class="form-control" id="form-line" name="line" placeholder="4">
+            </div>
+            <div class="col-md-2 form-group">
+              <label for="form-place">Zastávka: </label>
+              <input type="text" class="form-control" id="form-place" name="place" placeholder="Šafárikovo námestie">
+            </div>
+            <div class="col-md-2 form-group">
+              <label for="form-delay">Mešká minút: </label>
+              <input type="number" class="form-control" step=0.1 id="form-delay" name="delay" placeholder="10">
+            </div>
+          </div>
+          <div class="form-group">
+            <a type="submit" class="btn btn-lg btn-default js-save" style="display:none" href="#"><span class="glyphicon glyphicon-save"> Ulož</a>
+            </div>
+          </form>
+        </div>
 
-        <li>When Heroku received the source code, it grabbed all the dependencies in the <a href="https://github.com/heroku/node-js-getting-started/blob/master/package.json">package.json</a>.</li>
-        <li>The platform then spins up a dyno, a lightweight container that provides an isolated environment in which the slug can be mounted and executed.</li>
-        <li>You can scale your app, manage it, and deploy over <a href="https://addons.heroku.com/">150 add-on services</a>, from the Dashboard or CLI.</li>
-        <li>Check out the <a href="https://devcenter.heroku.com/articles/getting-started-with-nodejs">Getting Started</a> guide to learn more!</li>
-      </ul>
-    </div>
-    <div class="col-md-6">
-      <h3><span class="glyphicon glyphicon-link"></span> Helpful Links</h3>
-      <ul>
-        <li><a href="https://www.heroku.com/home">Heroku</a></li>
-        <li><a href="https://devcenter.heroku.com/">Heroku Dev Center</a></li>
-        <li><a href="https://devcenter.heroku.com/articles/getting-started-with-nodejs">Getting Started with Node on Heroku</a></li>
-        <li><a href="https://devcenter.heroku.com/articles/deploying-nodejs">Deploying Node Apps on Heroku</a></li>
-      </ul>
-    </div>
-  </div> <!-- row -->
-   <div class="alert alert-info text-center" role="alert">
-    Please do work through the Getting Started guide, even if you do know how to build such an application.  The guide covers the basics of working with Heroku, and will familiarize you with all the concepts you need in order to build and deploy your own apps.
-  </div>
-</div>
+      </div>
+
+      <div class="container">
+        <!--<div class="alert alert-info text-center" role="alert">
+          To deploy your own copy, and learn the fundamentals of the Heroku platform, head over to the <a href="https://devcenter.heroku.com/articles/getting-started-with-nodejs" class="alert-link">Getting Started with Node on Heroku</a> tutorial.
+        </div>
+        <hr>-->
+        <div class="row">
+          <div class="col-md-6">
+            <h3><span class="glyphicon glyphicon-info-sign"></span> Ako funguje táto stránka?</h3>
+            <ul>
+              <li>Nahlás kde mešká spoj!</li>
+              <li>Z meškaní sa počítajú štatistiky</li>
+              <li>Nabudúce budeš vedieť, že v štvrtok musíš íst na skoršiu 4, aby si stihol 39</li>
+            </ul>
+          </div>
+          <div class="col-md-6">
+            <h3><span class="glyphicon glyphicon-link"></span> Nápomocné linky</h3>
+            <ul>
+              <li><a href="https://imhd.sk/ba">iMHD</a></li>
+            </ul>
+          </div>
+        </div> <!-- row -->
+        <div class="row">
+          <h3>Aktuálne meškania</h3>
+          <ul class="js-late-list"></ul>
+        </div>
+
+        <div class="alert alert-info text-center" role="alert">
+          Please do work through the Getting Started guide, even if you do know how to build such an application.  The guide covers the basics of working with Heroku, and will familiarize you with all the concepts you need in order to build and deploy your own apps.
+        </div>
+      </div>
 
 
-</body>
-</html>
+    </body>
+  </html>
