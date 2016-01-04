@@ -17,7 +17,7 @@ function map_initialize(pos){
   map_infowindow = new google.maps.InfoWindow();
   var request = {
     location: loc,
-    radius: pos.coords.accuracy*2 + 500,
+    radius: pos.coords.accuracy + 300,
     types: ['train_station','bus_station','subway_station','transit_station']
   };
 
