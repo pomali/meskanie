@@ -56,7 +56,7 @@ function places_callback(results, status){
   }
 console.log(names)
   $("#form-place").autocomplete( {source: names, 
-    autofocus: true,
+    //autofocus: true,
     delay: 100,
     minLength: 0
   }).focus()
