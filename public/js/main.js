@@ -1,7 +1,5 @@
 var geoloc_options = {
-  enableHighAccuracy: true,
-  timeout: 5000,
-  maximumAge: 0
+  enableHighAccuracy: true
 }
 var prec = 10000
 var google_api_key = "AIzaSyATrt6-3belIckOOmzFKgSd8hzWT-R-VWQ"
