@@ -129,34 +129,14 @@ function report_delay(){
   return false;
 }
 
-$(function(){
-  console.log('ready');
-  $(".js-new").on("click", report_delay);
-
-  $("#form-post-delay").submit(function(e){
-    console.log($("#form-post-delay").serialize());
-    $.ajax({
-      type: "POST",
-      url: '/', 
-      data: $("#form-post-delay").serialize(),
-      success: function(d){ 
-        console.log(d); 
-        $("#form-post-delay").slideUp(
-          function(){ 
-            console.log("after");
-            $("#form-post-delay").after( '<div class="row"><h2>Ďakujeme!</h2></div>');
-          }
-          )
-      }
-    });
-    e.preventDefault();
-  });
-
+function fill_data(){
   $.ajax({
     url: "/api/data",
     type: "GET",
     dataType: "json",
     success: function(json){
+      console.log(json);
+      $(".js-late-list").empty();
       $.each(json, function(k,v){ 
         $(".js-late-list").append(
             '<tr>' +
@@ -173,4 +153,29 @@ $(function(){
              console.dir( xhr );
            }
   });
+}
+
+$(function(){
+  $(".js-new").on("click", report_delay);
+
+  $("#form-post-delay").submit(function(e){
+    console.log($("#form-post-delay").serialize());
+    $.ajax({
+      type: "POST",
+      url: '/', 
+      data: $("#form-post-delay").serialize(),
+      success: function(d){ 
+        console.log(d); 
+        $("#form-post-delay").slideUp(
+          function(){ 
+            $("#form-post-delay").after( '<div class="row"><h2>Ďakujeme!</h2></div>');
+          }
+          )
+          fill_data()
+      }
+    });
+    e.preventDefault();
+  });
+
+  fill_data();
 });

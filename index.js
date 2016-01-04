@@ -19,7 +19,6 @@ app.get('/', function(req, res) {
 });
 
 app.post('/', function(req, res) {
-  console.log(req);
   //TODO: validate
   var lat = parseFloat(req.body.lat);
   var lon = parseFloat(req.body.lon);
