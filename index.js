@@ -2,9 +2,12 @@ var express = require('express');
 var app = express();
 var pg = require('pg');
 var util = require('util');
+var db_connection_str = process.env.DATABASE_URL+"?ssl=true"
+var bodyParser = require('body-parser');
 
 app.set('port', (process.env.PORT || 5000));
 
+app.use(bodyParser.urlencoded({extended: true}))
 app.use(express.static(__dirname + '/public'));
 
 // views is directory for all template files
@@ -16,16 +19,20 @@ app.get('/', function(req, res) {
 });
 
 app.post('/', function(req, res) {
-  console.log(req.body);
+  console.log(req);
   //TODO: validate
-  var lat = req.body.lat;
-  var lon = req.body.lon;
-  var line = req.body.line;
+  var lat = parseFloat(req.body.lat);
+  var lon = parseFloat(req.body.lon);
+  var line = parseInt(req.body.line);
   var place = req.body.place;
-  var delay = req.body.delay;
+  var delay = parseFloat(req.body.delay);
+  var date_created = req.body.when;
 
-  pg.connect(process.env.DATABASE_URL, function(err, client, done) {
-    client.query('INSERT INTO meskania (lat, lon, line, place, delay) VALUES(?, ?, ?, ?, ?)', [lat, lon, line, place, delay], function(err, result) {
+
+  pg.connect(db_connection_str, function(err, client, done) {
+    client.query(
+'INSERT INTO meskania (lat, lon, line, place, delay, date_created) VALUES ($1, $2, $3, $4, $5, $6);', [lat, lon, line, place, delay + "m", date_created], 
+function(err, result) {
       done();
       if (err){ 
         console.error(err); 
@@ -38,9 +45,9 @@ app.post('/', function(req, res) {
   });
 });
 
-app.get('/data', function(req, res) {
-  pg.connect(process.env.DATABASE_URL+"?ssl=true", function(err, client, done) {
-    client.query('SELECT * FROM meskania', 
+app.get('/api/data', function(req, res) {
+  pg.connect(db_connection_str, function(err, client, done) {
+    client.query('SELECT * FROM meskania ORDER BY id DESC LIMIT 20', 
       function(err, result) {
         done();
         if (err) { 
