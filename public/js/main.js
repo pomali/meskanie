@@ -57,7 +57,7 @@ console.log(names)
     //autofocus: true,
     delay: 100,
     minLength: 0
-  }).focus()
+  }).bind('focus', function(){ $(this).autocomplete("search"); } ).focus();
 }
 
 

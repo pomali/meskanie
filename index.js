@@ -26,12 +26,12 @@ app.post('/', function(req, res) {
   var line = parseInt(req.body.line);
   var place = req.body.place;
   var delay = parseFloat(req.body.delay);
-  var date_created = req.body.when;
+  //var date_created = req.body.when;
 
 
   pg.connect(db_connection_str, function(err, client, done) {
     client.query(
-'INSERT INTO meskania (lat, lon, line, place, delay, date_created) VALUES ($1, $2, $3, $4, $5, $6);', [lat, lon, line, place, delay + "m", date_created], 
+'INSERT INTO meskania (lat, lon, line, place, delay, date_created) VALUES ($1, $2, $3, $4, $5, $6);', [lat, lon, line, place, delay + "m", new Date()], 
 function(err, result) {
       done();
       if (err){ 
